@@ -1,19 +1,19 @@
-# Capital Bikeshare Demand Forecasting
+# Micro-Mobility Time-Series Demand Forecasting
 
-**Author:** Rafiqul Islam  
-**Context:** PhD Technical Assessment Submission
+## Overview
+This repository implements a leak-free time-series demand forecasting pipeline using the Capital Bikeshare dataset (17,379 hourly records).
 
-## 📌 Project Overview
-An end-to-end time-series machine learning pipeline for predicting rental bike demand using the UCI Capital Bikeshare dataset. 
+## Key Highlights
+* **Leakage Prevention:** Removed short-term ground-truth lags ($t-1$ through $t-24$) to evaluate multi-day horizons (Days 21–end of month) without lookahead bias.
+* **Feature Engineering:** Used sine/cosine cyclical time encodings and out-of-fold target encodings computed exclusively from training data (Days 1–20).
+* **Multicollinearity:** Dropped `atemp` due to high correlation with `temp` ($r > 0.98$).
 
-To prevent temporal data leakage, the model enforces a strict cutoff temporal split (days 1–20 reserved for training/validation, days 21–end for testing).
+## Results (Days 21+ Test Set)
+* **Gradient Boosting:** $R^2 = 0.8788$, $\text{RMSE} = 63.06$, $\text{MAE} = 39.01$
+* **Random Forest:** $R^2 = 0.8634$, $\text{RMSE} = 66.94$
+* **Ridge Regression:** $R^2 = 0.7783$, $\text{RMSE} = 85.27$
 
-## 📊 Performance Metrics
-- **Primary Model:** Gradient Boosting Regressor (with cyclical time encoding, lagged features, and out-of-fold target encoding)
-- **$R^2$ Score:** `0.8788`
-- **RMSE:** `63.06`
-- **MAE:** `39.01`
 
 ## 🗂️ Repository Structure
-- `PhD_Technical_Assessment_Rafiqul_Islam.ipynb`: Complete executable Jupyter notebook with data preprocessing, feature engineering, model training, and evaluation logs.
+- `Md. Rafiqul Islam_BikeSharing.ipynb`: Complete executable Jupyter notebook with data preprocessing, feature engineering, model training, and evaluation logs.
 - `hour.csv`: Capital Bikeshare hourly dataset (UCI Machine Learning Repository).
